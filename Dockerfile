@@ -72,7 +72,11 @@ USER ${USERNAME}
 EXPOSE 8000
 
 # ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
+
+# Start Gunicorn
 # ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:8000"]
-ENTRYPOINT ["/usr/bin/tini", "--"]
 # CMD ["app:app"]
+
+# Start Tini
+ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
