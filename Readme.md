@@ -11,7 +11,7 @@ This Flask 2.0 app has the following features:
 - uses Python 3.10 Debian Bullseye Slim image (less than 150 MB)
 - can be deployed to Kubernetes (with or without nginx ingress)
 
-Reference for Tini
+Reference for Tini:
 
 - [https://github.com/krallin/tini]()
 - [https://github.com/krallin/tini/issues/8]()
