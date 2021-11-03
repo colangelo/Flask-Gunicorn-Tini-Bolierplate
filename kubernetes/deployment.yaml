@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: flask-gunicorn
+  name: flask-gunicorn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-gunicorn
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: flask-gunicorn
+    spec:
+      containers:
+        - image: flask-gunicorn:v1
+          name: flask-gunicorn
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          env:
+            - name: GUNICORN_CMD_ARGS
+              value: --reload --workers=2 --access-logfile=- --access-logformat='%(l)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s" %(D)s'
+          resources:
+            limits:
+              cpu: 200m
+              memory: 120Mi
+            requests:
+              cpu: 20m
+              memory: 55Mi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+              scheme: HTTP
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+status: {}

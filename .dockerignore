@@ -1,0 +1,19 @@
+# git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+*.dockerfile
+.dockerignore
+
+# Apple
+.DS_Store
+
+# Python Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Kubernetes deployment files
+kubernetes/

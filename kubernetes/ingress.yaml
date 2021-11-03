@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared-ip
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+    # cert-manager.io/cluster-issuer: letsencrypt-prod
+  labels:
+    app: flask-gunicorn
+  name: flask-gunicorn
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: flask-gunicorn.ngx.minikube.test
+      http:
+        paths:
+          - pathType: ImplementationSpecific
+            backend:
+              service:
+                name: flask-gunicorn
+                port:
+                  number: 8000
