@@ -1,14 +1,20 @@
-# Flask 2.0 + Gunicorn Boilerplate app
+# Flask 2.0 + Gunicorn + Tini Boilerplate app
 
 This Flask 2.0 app has the following features:
 
 - uses Gunicorn webserver
+- uses Tini: an init specifically built for containers (see reference below)
 - Gunicorn is set to reload at every change to the app.py file
 - has curl, netcat, ps and vi (vim-tiny) commands installed
 - runs as the non root user "web"
 - uses multistage build
 - uses Python 3.10 Debian Bullseye Slim image (less than 150 MB)
 - can be deployed to Kubernetes (with or without nginx ingress)
+
+Reference for Tini
+
+- [https://github.com/krallin/tini]()
+- [https://github.com/krallin/tini/issues/8]()
 
 Reference for Flask and Gunicorn ENV variables:
 
