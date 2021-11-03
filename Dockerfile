@@ -19,7 +19,7 @@ RUN apt-get update && \
 
 # lint
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir flake8==3.9.1
+    pip install --no-cache-dir flake8
 COPY . /usr/src/app/
 RUN flake8 --ignore=E501,F401 .
 
