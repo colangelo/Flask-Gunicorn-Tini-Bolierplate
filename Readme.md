@@ -1,6 +1,6 @@
-# Flask 2.0 + Gunicorn + Tini Boilerplate app
+# Flask 2 + Gunicorn + Tini : Boilerplate app
 
-This Flask 2.0 app has the following features:
+This Flask 2 app has the following features:
 
 - uses Gunicorn webserver
 - uses Tini: an init specifically built for containers (see reference below)
@@ -27,24 +27,21 @@ Reference for Flask and Gunicorn ENV variables:
 # Create pipenv virtualenv
 pipenv install -r requirements.txt
 
-# enter the virtualenv
-#pipenv shell
-
-# Run using Gunicorn
-pipenv run gunicorn --bind 0.0.0.0:8000 app:app
+# Debug using Gunicorn
+pipenv run gunicorn --reload --bind 0.0.0.0:8000 app:app
 ```
 
 Build container and run in Docker
 
 ```sh
-#
+# Build container
 export DOCKER_BUILDKIT=1
 docker image build -t flask-gunicorn-tini:v1 .
 
-#
+# Start the container in Docker
 docker run -d -p 8000:8000 flask-gunicorn-tini:v1
 
-#
+# Enter the container to test it
 docker exec -it <container_id> /bin/bash
 ```
 
@@ -54,16 +51,16 @@ Deploy to Minikube / Kubernetes
 # Enable Minikube docker
 eval $(minikube docker-env)
 
-# build
+# Build container
 export DOCKER_BUILDKIT=1
 docker image build -t flask-gunicorn-tini:v1 .
 
-# create deployment and service
+# Create deployment and service
 kubectl apply -f kubernetes/deployment.yaml -f kubernetes/service.yaml
 
-# create nginx ingress
+# Create nginx ingress
 kubectl apply -f kubernetes/ingress.yaml
 
-# update service to LoadBalancer (requires MetalLB on Minikube)
+# Update service to LoadBalancer (requires MetalLB on Minikube)
 kubectl apply -f kubernetes/service-lb.yaml
 ```
