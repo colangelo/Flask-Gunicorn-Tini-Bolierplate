@@ -48,7 +48,7 @@ WORKDIR ${APP_HOME}
 
 # install dependencies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends procps netcat curl vim-tiny && \
+    apt-get install -y --no-install-recommends tini procps netcat curl vim-tiny && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /usr/src/app/wheels /wheels
@@ -72,5 +72,7 @@ USER ${USERNAME}
 EXPOSE 8000
 
 # ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
-ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:8000"]
-CMD ["app:app"]
+# ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:8000"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
+# CMD ["app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
