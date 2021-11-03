@@ -2,8 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: flask-gunicorn
-  name: flask-gunicorn
+    app: flask-gunicorn-tini
+  name: flask-gunicorn-tini
 spec:
   ports:
     - name: 8000-8000
@@ -11,7 +11,7 @@ spec:
       protocol: TCP
       targetPort: 8000
   selector:
-    app: flask-gunicorn
+    app: flask-gunicorn-tini
   type: LoadBalancer
 status:
   loadBalancer: {}

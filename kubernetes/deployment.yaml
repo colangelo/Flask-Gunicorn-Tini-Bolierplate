@@ -2,29 +2,29 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: flask-gunicorn
-  name: flask-gunicorn
+    app: flask-gunicorn-tini
+  name: flask-gunicorn-tini
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: flask-gunicorn
+      app: flask-gunicorn-tini
   strategy: {}
   template:
     metadata:
       labels:
-        app: flask-gunicorn
+        app: flask-gunicorn-tini
     spec:
       containers:
-        - image: flask-gunicorn:v1
-          name: flask-gunicorn
+        - image: flask-gunicorn-tini:v1
+          name: flask-gunicorn-tini
           ports:
             - name: http
               containerPort: 8000
               protocol: TCP
           env:
             - name: GUNICORN_CMD_ARGS
-              value: --reload --workers=2 --access-logfile=- --access-logformat='%(l)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s" %(D)s'
+              value: --reload --workers=4 --access-logfile=- --access-logformat='%(l)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s" %(D)s'
           resources:
             limits:
               cpu: 200m
