@@ -24,6 +24,12 @@ Reference for Flask and Gunicorn ENV variables:
 ## Test the app
 
 ```sh
+# Create pipenv virtualenv
+pipenv install -r requirements.txt
+
+# enter the virtualenv
+#pipenv shell
+
 # Run using Gunicorn
 pipenv run gunicorn --bind 0.0.0.0:8000 app:app
 ```
@@ -33,10 +39,10 @@ Build container and run in Docker
 ```sh
 #
 export DOCKER_BUILDKIT=1
-docker image build -t flask-gunicorn:v1 .
+docker image build -t flask-gunicorn-tini:v1 .
 
 #
-docker run -d -p 8000:8000 flask-gunicorn:v1
+docker run -d -p 8000:8000 flask-gunicorn-tini:v1
 
 #
 docker exec -it <container_id> /bin/bash
@@ -50,7 +56,7 @@ eval $(minikube docker-env)
 
 # build
 export DOCKER_BUILDKIT=1
-docker image build -t flask-gunicorn:v1 .
+docker image build -t flask-gunicorn-tini:v1 .
 
 # create deployment and service
 kubectl apply -f kubernetes/deployment.yaml -f kubernetes/service.yaml
